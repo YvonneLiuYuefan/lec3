@@ -1,0 +1,27 @@
+$primary-color: #4BA8DC;
+$button-color: #3e85b7;
+$button-text-color: azure;
+
+h3 {
+  color: $primary-color;
+  font-family: "Courier New";
+}
+
+button {
+  background-color: $button-color;
+  color: $button-text-color;
+  font-family: "Courier New";
+  font-size: 18px;
+}
+
+h4 {
+  @extend button
+}
+
+a {
+  color: $primary-color;
+}
+
+input{
+  height: 20px;
+}

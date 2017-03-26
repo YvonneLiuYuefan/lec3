@@ -17,26 +17,38 @@
 <ul id="messages"></ul>
 <form action="">
     <label>user: </label><input id="u" autocomplete="off" />
+    <br>
     <label>msg: </label><input id="m" autocomplete="off" /><button>Send</button>
 </form>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++ ) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
     $(function () {
+        var msgcolor = getRandomColor();
         var socket = io();
         $('form').submit(function(){
             var usermsg = {
                 user: $('#u').val(),
-                msg: $('#m').val()
+                msg: $('#m').val(),
+                msgcolor: msgcolor
             };
             socket.emit('chat message', usermsg);
             $('#m').val('');
             return false;
         });
         socket.on('response message', function(usermsg){
-
-            $('#messages').append($('<li>').text(usermsg.user + ": " + usermsg.msg));
+            var li = $('<li>').text(usermsg.user + ": " + usermsg.msg);
+            li.css({color: usermsg.msgcolor});
+            $('#messages').append(li);
         });
     });
 </script>
